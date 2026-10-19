@@ -1,0 +1,13 @@
+interface:
+  display_name: "口播写作、分析与制作"
+  short_description: "保留写稿与参考分析，确认节奏和气口后，用已有素材制作口播视频及可编辑工程"
+  default_prompt: "用 $write-edit-talking-head 复用我的口播参考；先沿用已知信息，确认缺少的节奏、气口和必留内容，再按我选择的分析、剪辑方案或成片深度执行。"
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

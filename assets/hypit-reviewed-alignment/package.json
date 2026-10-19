@@ -1,0 +1,8 @@
+{
+  "name": "@koubo/reviewed-alignment",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "hypit": {"activation": "./activation.mjs"},
+  "peerDependencies": {"@hypit/hypit": "0.3.1"}
+}
