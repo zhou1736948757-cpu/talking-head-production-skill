@@ -1,0 +1,121 @@
+{
+  "purpose": "合成验证：在同一语义段演示独立选择的图卡、白板与关键词，不代表用户片的默认处理",
+  "clips": [
+    {
+      "id": "feature",
+      "grammar": "t2_keynote_ui",
+      "theme": "paper",
+      "first": "p2-0",
+      "last": "p2-8",
+      "size": [
+        360,
+        640
+      ],
+      "frame": [
+        0.03,
+        0.03,
+        0.97,
+        0.77
+      ],
+      "safe": {
+        "top": 12,
+        "bottom": 12,
+        "left": 16,
+        "right": 16
+      },
+      "cues": [
+        {
+          "token": "p2-0",
+          "kind": "card",
+          "text": "语义对齐",
+          "sub": "沿用原声",
+          "data": {
+            "icon": "layers"
+          }
+        },
+        {
+          "token": "p2-4",
+          "kind": "card",
+          "text": "明确重点",
+          "data": {
+            "icon": "check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "board",
+      "grammar": "y3_whiteboard",
+      "theme": "chalk",
+      "first": "p2-0",
+      "last": "p2-8",
+      "size": [
+        640,
+        360
+      ],
+      "frame": [
+        0.06,
+        0.1,
+        0.94,
+        0.38
+      ],
+      "safe": {
+        "top": 12,
+        "bottom": 12,
+        "left": 16,
+        "right": 16
+      },
+      "cues": [
+        {
+          "token": "p2-0",
+          "kind": "draw",
+          "text": "内容",
+          "data": {
+            "icon": "bulb"
+          }
+        },
+        {
+          "token": "p2-4",
+          "kind": "point",
+          "text": "画面服务意思"
+        }
+      ],
+      "pen": "hidden"
+    },
+    {
+      "id": "words",
+      "grammar": "y5_kinetic_type",
+      "theme": "paper",
+      "first": "p2-0",
+      "last": "p2-8",
+      "size": [
+        640,
+        360
+      ],
+      "frame": [
+        0.06,
+        0.1,
+        0.94,
+        0.38
+      ],
+      "safe": {
+        "top": 12,
+        "bottom": 12,
+        "left": 16,
+        "right": 16
+      },
+      "cues": [
+        {
+          "token": "p2-0",
+          "kind": "point",
+          "text": "先说清楚"
+        },
+        {
+          "token": "p2-4",
+          "kind": "point",
+          "text": "再给画面"
+        }
+      ]
+    }
+  ]
+}

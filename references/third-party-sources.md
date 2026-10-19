@@ -21,3 +21,11 @@
 ## 现有参考库与输入
 
 保留原仓库 41 片/282 方法、125 张原创重绘/机制图及完整来源索引。用户提供的 Hypit 官方参考 ZIP、标准化参考档案和六例 SAMPLES 用于核验集成；其中私人归档报告留在仓库外，本分支不公开它们。旧档案中缺原始视频/台词/词时的项不因集成而补成已知。图像不因保留而声称本轮重新逐图视觉验收。
+
+## 可选 Huashu / 画术
+
+- 准确身份：`huashu-art-motion`，作者 alchaincyf（花叔），[上游仓库](https://github.com/alchaincyf/huashu-art-motion)。本轮本地主副本声明 version 1.0.0；另一个 Codex 安装副本内容较旧，不能凭目录名假定接口完全相同。
+- 本地 LICENSE 与公开上游 [LICENSE](https://github.com/alchaincyf/huashu-art-motion/blob/main/LICENSE) 核对为 MIT，版权 © 2026 alchaincyf；保留原文于 `licenses/Huashu-LICENSE.txt`。字体不属于该 MIT，按其 `lib/fonts/LICENSES.md` 与各自 OFL 等说明处理。本仓库不分发这些字体、人物、示范媒体或引擎源码。
+- 接口依据为本地 Skill、`references/09-视频动画语法.md`、`references/12-口播整片与经验回流.md`、三种被选语法卡、`clip.html/clip.js` 与相关绘图库。`render.py --spec` 的契约是 grammar/duration/fps/size/theme/safe/cues，其中 at 是片内局部时间。本包从当前剪后 token 生成这些时间，不搬源片秒数。
+- 独立适配器使用现有 Chrome/Puppeteer 运行已审阅本地 Canvas 片段，阻止外部浏览器请求；没有执行上游 render.py/qa.py/deliver.py，也不采用其浏览器放宽安全选项。独立验证范围与未运行项单列，不能声称通过上游完整 QA。
+- 引擎按本地文件内容指纹绑定；更新/更换安装后须重新审阅。此指纹是可复现标识，不是上游签名或安全认证。

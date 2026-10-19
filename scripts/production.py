@@ -322,6 +322,13 @@ def export_hypit(edit, rough, destination, font, scenes=None, style=None, final_
     declarations, tracks, events = [], [], []
     for scene in scenes:
         sid = scene["id"]
+        frame_ref = "card-frame"
+        if "frame" in scene:
+            frame = scene["frame"]
+            if len(frame) != 4 or not all(isinstance(v, (int,float)) and math.isfinite(v) for v in frame) or not (0 <= frame[0] < frame[2] <= 1 and 0 <= frame[1] < frame[3] <= 1):
+                raise ValueError("场景 frame 须为归一化 [left,top,right,bottom]")
+            frame_ref = sid + "-frame"
+            declarations.append(f'  <space:Frame id="{frame_ref}" within={{canvas.bounds}} left="{frame[0]*100}%" top="{frame[1]*100}%" right="{frame[2]*100}%" bottom="{frame[3]*100}%"/>')
         declarations += [f'  <semantic:Window id="{sid}" projection={{story-time}} during={{story.selection.{sid}}}/>',
                          f'  <semantic:Instant id="{sid}-enter" projection={{story-time}} at={{story.moment.{sid}-enter}}/>',
                          f'  <time:Window id="{sid}-visible" timeline={{speech.timeline}} from={{{sid}-enter}} until={{{sid}.end}}/>']
@@ -334,10 +341,11 @@ def export_hypit(edit, rough, destination, font, scenes=None, style=None, final_
             shutil.copy2(source, assets / name)
             declarations += [f'  <asset:Video id="{sid}-asset" src="./assets/{q(name)}"/>',
                              f'  <mediaop:Normalize id="{sid}-media" source={{{sid}-asset}} clock={{clock}} video="primary-moving" audio="none" span-authority="video"/>',
-                             f'  <visual:Track id="{sid}-picture" timeline={{speech.timeline}}><visual:Clip id="slot" media={{{sid}-media.media}} during={{{sid}-visible}} frame={{card-frame}} z="20" fit="contain"/></visual:Track>']
+                             f'  <visual:Track id="{sid}-picture" timeline={{speech.timeline}}><visual:Clip id="slot" media={{{sid}-media.media}} during={{{sid}-visible}} frame={{{frame_ref}}} z="20" fit="contain"/></visual:Track>']
             tracks.append(f'    <film:Track source={{{sid}-picture.visual}}/>')
-        declarations += [f'  <typo:Flow id="{sid}-label" timeline={{speech.timeline}} within={{card-frame}} style={{card-style}} during={{{sid}-visible}} z="30" align="center" block-align="center" motion={{card-motion}}>{q(scene.get("label", ""))}</typo:Flow>']
-        tracks.append(f'    <film:Track source={{{sid}-label.visual}}/>')
+        if scene.get("label"):
+            declarations += [f'  <typo:Flow id="{sid}-label" timeline={{speech.timeline}} within={{{frame_ref}}} style={{card-style}} during={{{sid}-visible}} z="30" align="center" block-align="center" motion={{card-motion}}>{q(scene["label"])}</typo:Flow>']
+            tracks.append(f'    <film:Track source={{{sid}-label.visual}}/>')
         first = next(t for t in edit["tokens"] if t["id"] == scene["first"])
         last = next(t for t in edit["tokens"] if t["id"] == scene["last"])
         events.append({"id": sid, "first": scene["first"], "last": scene["last"],

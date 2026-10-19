@@ -27,6 +27,8 @@ description: 为中文口播写稿、改稿、分析参考、设计字幕与剪�
 
 制作时保留已有真人素材，不默认生成新人物。使用 [backend-contracts.md](references/backend-contracts.md) 接入本地转录导入、video-use 数据格式和可替换后端；本包不调用收费 ASR/生成、不扫描秘密、不上传私人音轨。`browser-use/video-use` 是上游项目归属；它没有专用呼吸检测器，词间空隙只是待听审候选。外部 ASR 需要另行说明上传、账户、费用并取得授权，本次实现不提供隐式调用路径。
 
+需要可复用的解释动效时，读 [huashu-integration.md](references/huashu-integration.md)。Huashu 是可选本地片段后端：白板说明关系、产品图卡呈现已有素材、关键词用于少量重点；普通讲述和基础字幕继续用 Hypit。先读本地准确版本的 Skill、被选语法和许可，`inspect` 只读检测；审阅后才用匹配指纹执行。用剪后 token 生成 cue，生成无声短片段，再作为 Hypit 的语义素材槽接入；它不接管原声、真人、字幕与总时间线。没有依赖或不需要动效时继续原路径，不自动安装、不默认叠满特效，不运行其人物/声音生成服务。
+
 用 `scripts/production.py` 生成可逆删留表、原片到剪后映射及粗剪。每次删除有理由，气口、情绪停顿和必留限定优先保护；不盲删所有空隙。最终接受的口播与剪后媒体重新建立语义关系：无变速且未截断词时可严格映射已有测量，并明确是映射而非重新 ASR；改话、换录音或变速需新测量，不估填。Script 的 Selection/Moment 经 NarrativeAlignment 和 Projection 供画面、字幕、动效消费。改台词重新校验锚点，改样式保留素材，显式检查 Run 的剩余工作。原生工程用法见制作流程。
 
 完成前读 [production-review.md](references/production-review.md)，检查实际预览、字幕与动效触发/退场、中文字体与断句、音画、气口及所有替换槽。最终交付实际视频、可编辑 `.svml/.svs/.svrun` 和素材、删留理由、时间映射、运行/未运行清单；没有运行的 ASR、生成或渲染必须如实标注。完整上游版本与许可见 [third-party-sources.md](references/third-party-sources.md)。

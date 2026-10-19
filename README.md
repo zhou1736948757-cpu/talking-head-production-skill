@@ -28,7 +28,7 @@ export PATH="$PWD/.tools/node_modules/.bin:$PATH"
 hypit --version
 ```
 
-本轮复用了已有 Hypit 安装；这条从零安装路径、其他操作系统和其他 Hypit 版本尚未端到端实测。若某依赖需要额外准备，按官方文档在项目内处理，不自动开启安装脚本、下载 ASR 模型或连接付费服务。FFmpeg/Chrome 按各自官方发行版准备，字体由当前项目指定并核对许可，不随本仓库分发。
+本轮复用了已有 Hypit 安装；这条从零安装路径、其他操作系统和其他 Hypit 版本尚未端到端实测。若某依赖需要额外准备，按官方文档在项目内处理，不自动开启安装脚本、下载 ASR 模型或连接付费服务。FFmpeg/Chrome 按各自官方发行版准备，字体由当前项目指定并核对许可，不随本仓库分发。可选 Huashu 动效另外需要用户本机的 `huashu-art-motion` 与已有 `puppeteer-core`，没有它们仍可使用全部原有 Hypit/写改稿路径。
 
 ## 使用
 
@@ -92,11 +92,13 @@ python3 scripts/synthetic_demo.py /path/demo-output --font /path/chinese-font.tt
 
 完整的 analyze → plan → roughcut → export → check/plan/build 命令、request/scenes/style 格式和本地 Runtime 配置见 [制作流程](references/production-workflow.md)。生成工程的 `package.json` 声明项目依赖。可在该工程内隔离安装依赖，或用 `scripts/hypit_backend.py PROJECT link-installed --distribution DISTRIBUTION` 复用已有的 0.3.1 安装；依赖缓存和运行结果均不随 Skill 发布。
 
-已验证：22 项 Python 单元测试、6 项原生对齐检查、36 秒 Hypit 实际编码输出、15 帧已有视频槽片段、剪后语义窗口与合成音频信号，以及样式修改后的媒体复用计划。**真实 ASR、自然呼吸检测/自动气声衰减、真人完整听审和 Studio UI 未实测**。词间空隙只是待听审候选，默认保留未确认项；`approved=true` 表示在已确认策略下完成了该项听审，不是凭空认定可删。
+核心路径已验证：22 项 Python 单元测试、6 项原生对齐检查、36 秒 Hypit 实际编码输出、15 帧已有视频槽片段、剪后语义窗口与合成音频信号，以及样式修改后的媒体复用计划。Huashu 整合的新增测试与实际渲染记录见 [验证报告](tests/VALIDATION.md)。**真实 ASR、自然呼吸检测/自动气声衰减、真人完整听审和 Studio UI 未实测**。词间空隙只是待听审候选，默认保留未确认项；`approved=true` 表示在已确认策略下完成了该项听审，不是凭空认定可删。
 
 ## 集成方式与许可
 
-这是独立编写的 Skill、Python 适配器和 Hypit 项目 Author Package；Hypit 本身通过外部依赖安装，未把其整库源码、CLI 或模型捆绑进来。video-use 提供了已有转录格式和剪辑设计的参考，本包不执行其查找 Key/上传 Scribe 的脚本。Huashu／画术未集成，也不是依赖。
+这是独立编写的 Skill、Python 适配器和 Hypit 项目 Author Package；Hypit 本身通过外部依赖安装，未把其整库源码、CLI 或模型捆绑进来。video-use 提供了已有转录格式和剪辑设计的参考，本包不执行其查找 Key/上传 Scribe 的脚本。
+
+Huashu／画术现为 **可选本地动效后端**，准确身份是 [`alchaincyf/huashu-art-motion`](https://github.com/alchaincyf/huashu-art-motion)。本包不捆绑其引擎、示范人物、素材或字体；只提供独立适配器和流程指南。已接入 `t2_keynote_ui` 图卡、`y3_whiteboard` 白板、`y5_kinetic_type` 关键词片段。其它语法及人物/语音生成不在此适配范围。详见 [Huashu 接入与使用](references/huashu-integration.md)。
 
 本仓库原创代码和既有原创资产使用 [MIT](LICENSE)。Hypit 采用**带附加限制的 Apache 2.0 修改版**，涉及多租户托管、商业分发与标识保留等条件；不能把它当成纯 Apache 2.0 或本仓库 MIT 的一部分。上游完整 [Hypit 许可](references/licenses/Hypit-LICENSE.txt)、[video-use MIT 许可](references/licenses/video-use-LICENSE.txt)、固定版本与接口来源均保留在 [第三方来源](references/third-party-sources.md)。按需要另行审阅依赖许可，发布本 Skill 不授予其它依赖、教程原视频、字体或用户素材的权利。
 

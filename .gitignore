@@ -23,3 +23,5 @@ demo-output/
 *.zip
 *.patch
 .DS_Store
+motion-output/
+local-engine-review.json
